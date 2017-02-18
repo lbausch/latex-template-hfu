@@ -1,0 +1,319 @@
+%% ----------------------------------------------------------------------------
+%% Attribution
+%% ----------------------------------------------------------------------------
+%%
+%% Dieses Template basiert in Teilen auf der Arbeit folgender Personen:
+%%
+%% Fabian Berner: http://webuser.hs-furtwangen.de/~berner/wa.html
+%% Manuel Kühner: https://bedienhaptik.de/latex-template/
+%% ----------------------------------------------------------------------------
+
+
+% koma-script – A bundle of versatile classes and packages
+% https://www.ctan.org/pkg/koma-script
+\documentclass[
+    paper=A4,% Papierformat
+    fontsize=12pt,% Schriftgröße des Dokuments
+    headings=small,% Größe der Überschriften
+    plainheadsepline,% Linie unter Kopfzeile
+    headsepline,% Linie unter Kopfzeile
+    parskip=false,% Absätze werden durch einen Einzug der ersten Zeilen von einem Geviert (1 em) gekennzeichnet, der erste Absatz eines Abschnitts wird nicht eingezogen
+    numbers=noendperiod,% Kein Punkt am Ender der Gliederungsnummer bei Gliederungen mit ausschließlich arabischen Ziffern
+    twoside=true,% doppelseitiger Satz
+    toc=listof,% Aufführung des Tabellen- und Abbildungsverzeichnises im Inhaltsverzeichnis
+    toc=bibliography,% Literaturverzeichnis
+    bibliography=totoc,%
+    listof=entryprefix,% Im Abbildungs- und Tabellenverzeichnis wird "Abbildung" bzw. "Tabelle" vorangestellt
+    version=last,% Neueste Version von KOMA-Script benutzen
+    appendixprefix=true,%
+]{scrbook}
+
+
+% Monospace-Schriftart: Courier
+\usepackage{courier}
+
+% Standardschriftart ohne Serifen festlegen
+\renewcommand*\familydefault{\sfdefault}
+
+% Schriftgrößen
+% Hauptkapitelüberschrift (Ebene 1): 14 Punkt, fett
+\setkomafont{chapter}{\fontsize{14pt}{14pt}\normalfont\bfseries}
+
+% Unterkapitelüberschrift (Ebene 2): 12 Punkt, fett
+\setkomafont{section}{\fontsize{12pt}{12pt}\normalfont\bfseries}
+
+% Unterkapitelüberschrift (Ebene 3): 12 Punkt
+\setkomafont{subsection}{\fontsize{12pt}{12pt}\normalfont}
+
+% Unterkapitelüberschrift (Ebene 4): 12 Punkt
+\setkomafont{subsubsection}{\fontsize{12pt}{12pt}\normalfont}
+
+% http://tex.stackexchange.com/questions/155604/itemize-under-sf-produce-a-font-warning#comment355838_155619
+\DeclareTextCommandDefault{\textbullet}{\ensuremath{\bullet}}
+
+
+% Benötigte Pakete laden
+\input{packages}
+
+
+% Warning: seems you are using a very small headheight
+% http://golatex.de/package-scrpage2-warning-t6465.html
+\setlength{\headheight}{1.1\baselineskip}
+
+
+% Bis zu welcher Ebene soll nummeriert werden?
+\setcounter{secnumdepth}{2}
+
+% Bis zu welcher Ebene soll ins Inhaltsverzeichnis aufgenommen werden?
+\setcounter{tocdepth}{2}
+%  0: Chapter
+%  1: Section
+%  2: Subsection
+%  3: Subsubsection
+%  4: Paragraph
+%  5: Subparagraph
+
+
+% caption – Customising captions in floating environments
+% https://www.ctan.org/pkg/caption
+\usepackage[%
+    font={normalsize},%
+    labelfont={sf,sf},%
+    format=hang,%
+    margin=5pt,%
+    justification=centering,%
+]{caption}
+
+
+% Inhaltsverzeichnis für Listings
+\DeclareNewTOC[
+    type=code,%
+    name=Listing,%
+    listname=Listingverzeichnis,%
+    nonfloat,%
+    counterwithin=chapter,%
+]{code}
+
+% Überschriften der Listings
+\DeclareCaptionStyle{listings}[]{
+    aboveskip=15pt,%
+    belowskip=5pt,%
+    position=below,%
+    font={normalsize},%
+    labelfont={sf,sf},%
+    format=hang,%
+    margin=5pt,%
+    justification=centering,%
+}
+
+% Umgebung für Listings
+% http://tex.stackexchange.com/a/7338
+\newenvironment{code}{%
+    \captionsetup{%
+        type=code,%
+        name=Listing,%
+        style=listings,%
+        %calcwidth=0.8\linewidth,
+    }
+}
+{%
+    \vspace{5pt}%
+}
+
+
+% srcpage2: Alle Felder beider Seitenstile auf leere Inhalte setzen
+%\clearscrheadfoot
+
+% Schriftart der Kopfzeile
+%\setkomafont{pageheadfoot}{\normalfont\sffamily}
+\setkomafont{pageheadfoot}{\normalfont}
+
+
+% Kopfzeile setzen
+\ohead[\pagemark]{\pagemark}
+\ihead[\headmark]{\headmark}
+
+\automark[chapter]{chapter}
+\automark*[section]{}
+\ofoot[]{}
+
+
+% Punkte zwischen ALLEN Kapiteln und der Seitenzahl im Inhaltsverzechnis
+\KOMAoptions{toc=chapterentrydotfill}
+
+
+% Optimize paragraphs (avoid overfull... warnings)
+% This is an suggestion from Axel Reichert (LaTeX package author)
+% See CTAN: http://www.ctan.org/author/reichert
+% See CTAN: http://www.ctan.org/pkg/l2tabu-english (Cgapter: 1.8 Should I use \sloppy?)
+\tolerance 1414
+\hbadness 1414
+\emergencystretch 1.5em
+\hfuzz 0.3pt
+\widowpenalty=10000
+\vfuzz \hfuzz
+\raggedbottom
+
+
+% blindtext – Producing 'blind' text for testing
+% http://www.ctan.org/pkg/blindtext
+\usepackage{blindtext}
+
+
+% url – Verbatim with URL-sensitive line breaks
+% https://www.ctan.org/pkg/url
+% URLs korrekt umbrechen, sollte vor hyperref geladen werden
+\usepackage[T1,hyphens]{url}
+
+
+% hyperref – Extensive support for hypertext in LaTeXe end.
+% https://www.ctan.org/pkg/hyperref
+\usepackage[
+    bookmarks,% Bookmarks anlegen
+    bookmarksopen=true,% Bookmarks standardmäßig ausklappen
+    bookmarksopenlevel=1,% Bis zu welcher Ebene ausklappen
+    bookmarksnumbered=true,% Bookmarks nummerieren
+    hidelinks,% Farbe und Unterstreichung von Links entfernen
+    hyperfootnotes=true,% Fußnoten mit Links versehen
+    hyperindex=true,% Seitenzahlen im Inhaltsverzeichnis verlinken
+    pdfpagelabels=true,% "set PDF page labels"
+    plainpages=false,% arabische Nummerierung für Seitenverweise
+    pdfpagelayout=TwoPageRight,%
+]{hyperref}
+
+
+% glossaries – Create glossaries and lists of acronyms
+% Sollte nach hyperref geladen werden
+% https://www.ctan.org/pkg/glossaries
+\usepackage{glossaries}
+\setacronymstyle{long-short}
+\makenoidxglossaries
+\glstoctrue
+
+
+% BibLaTeX – Sophisticated Bibliographies in LaTeX
+% https://www.ctan.org/pkg/biblatex
+\usepackage[style=apa,backend=biber,language=ngerman]{biblatex}
+\addbibresource[]{literaturverzeichnis.bib}
+% http://mirror.switch.ch/ftp/mirror/tex/macros/latex/contrib/biblatex/doc/examples/biblatex-examples.bib
+\DeclareLanguageMapping{german}{german-apa}
+% http://tex.stackexchange.com/a/13076
+\DefineBibliographyStrings{ngerman}{%
+    retrieved = {Zugriff\space am},%
+}
+% I don't know why, but pdflatex returns an error if ngerman instead of german is specified
+
+% Abkürzungsverzeichnis
+\input{abkuerzungsverzeichnis}
+
+
+% Informationen über die Arbeit laden
+\input{config}
+
+
+% Benutzerdefinierte Kommandos
+\input{commands}
+
+
+% Benutzerdefinierte Definitionen für das Umbrechen spezifischer Wörter
+\input{hyphenations}
+
+
+% Setzen der PDF-Metadatan
+\hypersetup{
+    pdftitle={\configTitel},%
+    pdfauthor={\configAutor},%
+    pdfsubject={\configArtDerArbeit\ im Studiengang \configStudiengang},%
+    pdfcreator={TeXstudio},%
+    pdfproducer={pdfTeX running inside a Docker Container @ \DTMnow},%
+    pdfkeywords={},%
+}
+
+
+% Korrekte Formatierung des Anhangs (Überschriften, ToC, etc.)
+% http://tex.stackexchange.com/a/319109
+\xapptocmd{\appendix}{%
+    \addtocontents{toc}{%
+        \RedeclareSectionCommand[
+        tocdynnumwidth,
+        tocentrynumberformat=\tocappendixnumber
+        ]{chapter}%
+    }%
+}{}{\PatchFailed}
+\newcommand\tocappendixnumber[1]{\chapapp~#1}
+
+
+% Beginn des Dokuments
+\begin{document}
+
+
+% Titelseite
+% http://tex.stackexchange.com/a/18927
+\hypersetup{pageanchor=false}
+\input{titelblatt}
+\hypersetup{pageanchor=true}
+
+
+% scrheadings
+%\pagestyle{scrheadings}
+
+
+% Römische Seitennummerierung
+\pagenumbering{roman}
+
+
+% Mit Seite I starten
+%\setcounter{page}{1}
+
+
+% Vorwort
+\input{vorwort}
+
+
+% Abstract
+\input{abstract}
+
+% Inhaltsverzeichnis, Abbildungsverzeichnis, Tabellenverzeichnis
+\input{verzeichnisse}
+
+% Arabische Nummerierung
+\pagenumbering{arabic}
+
+% Mit Seite 1 beginnen
+\setcounter{page}{1}
+
+
+% Inhalt
+\input{inhalt}
+
+
+% Literaturverzeichnis
+\input{literaturverzeichnis}
+
+\trennblatt
+
+% Eidesstattliche Erklärung
+\input{eidesstattliche_erklaerung}
+
+
+% Beginn des Anhangs
+\trennblatt
+\appendix
+
+\addappheadtotoc
+\appendixpage
+\appendixtocoff
+\appendixtitletocoff
+
+\begin{appendices}
+    \ohead[\Alph{chapter}-\pagemark]{\Alph{chapter}-\pagemark}
+    \input{anhang}
+\end{appendices}
+
+
+% Trennblatt
+\trennblatt
+
+
+% Ende des Dokuments
+\end{document}

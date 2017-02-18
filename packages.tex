@@ -1,0 +1,275 @@
+% http://tex.stackexchange.com/questions/51867/koma-warning-about-toc
+% CTAN: http://www.ctan.org/tex-archive/macros/latex/contrib/koma-script/doc
+\usepackage{scrhack}
+
+
+% marginnote – Notes in the margin, even where \marginpar fails
+% http://www.ctan.org/pkg/marginnote
+\usepackage{marginnote}
+
+
+% scrlayer-scrpage – Define and manage page styles
+% https://www.ctan.org/pkg/scrlayer-scrpage
+\usepackage[]{scrlayer-scrpage}
+
+
+% fix-cm – Permit Computer Modern fonts at arbitrary sizes
+% https://www.ctan.org/pkg/fix-cm
+\RequirePackage{fix-cm}
+
+
+% seqsplit – Split long sequences of characters in a neutral way
+% https://www.ctan.org/pkg/seqsplit
+\usepackage{seqsplit}
+
+
+% dirtree – Display trees in the style of windows explorer
+% https://www.ctan.org/pkg/dirtree
+\usepackage{dirtree}
+
+
+% xcolor – Driver-independent color extensions for LaTeX and pdfLaTeX
+% https://www.ctan.org/pkg/xcolor
+\usepackage[table]{xcolor}
+
+
+% tcolorbox – Coloured boxes, for LaTeX examples and theorems, etc
+% https://ctan.org/pkg/tcolorbox
+\usepackage[
+    many,%
+    breakable,%
+]{tcolorbox}
+
+
+% etoolbox – e-TeX tools for LaTeX
+% https://www.ctan.org/pkg/etoolbox
+\usepackage{etoolbox}
+
+
+% http://tex.stackexchange.com/questions/112404/reliable-code-for-automatic-noindent-after-specific-environments
+\makeatletter
+\newcommand*\NoIndentAfterEnv[1]{%
+    \AfterEndEnvironment{#1}{\par\@afterindentfalse\@afterheading}}
+\makeatother
+\NoIndentAfterEnv{code}
+
+
+% minted – Highlighted source code for LaTeX
+% https://www.ctan.org/pkg/minted
+\usepackage[
+    chapter,%
+%    newfloat=true,
+]{minted}
+
+
+\tcbset{
+    breakable,%
+%    before skip=1em,%
+%    after skip=1em,%
+    boxrule=0.5pt,%
+    colback=white,%
+    colframe=black,%
+    skin=enhanced,%
+%    float,
+}
+
+\BeforeBeginEnvironment{minted}{\renewcommand{\fcolorbox}[4][]{#4}\begin{tcolorbox}}
+\AfterEndEnvironment{minted}{\end{tcolorbox}}
+
+\usepackage{xpatch}
+\xpretocmd{\inputminted}{\begin{tcolorbox}}{}{}
+\xapptocmd{\inputminted}{\end{tcolorbox}}{}{}
+
+
+\setminted[]{
+    autogobble=true,% remove (gobble) all common leading whitespace from code
+    breaklines=true,% break lines
+    breakafter=-/.\\,%
+%    breakanywhere=true,% break lines anywhere
+    linenos=true,% show line numbers
+    xleftmargin=2em,% Abstand links
+    framerule=0pt,%
+    fontsize=\footnotesize,%
+}
+\setminted[php]{startinline}% PHP: highlight also if no <?php is present
+
+% Formatierung der Zeilennummern
+\renewcommand{\theFancyVerbLine}{%
+    \sffamily\textcolor[rgb]{0.5,0.5,1.0}{%
+        \footnotesize\oldstylenums{%
+            \arabic{FancyVerbLine}%
+        }%
+    }%
+}
+
+\newmintedfile{apache}{
+    autogobble=true,% remove (gobble) all common leading whitespace from code
+    breaklines=true,% break lines
+    breakafter=-/.,%
+    %    breakanywhere=true,% break lines anywhere
+    linenos=true,% show line numbers
+    xleftmargin=2em,% Abstand links
+    framerule=0pt,%
+}
+\newmintedfile{bash}{
+    autogobble=true,% remove (gobble) all common leading whitespace from code
+    breaklines=true,% break lines
+    breakafter=-/.,%
+%    breakanywhere=true,% break lines anywhere
+    linenos=true,% show line numbers
+    xleftmargin=2em,% Abstand links
+    framerule=0pt,%
+}
+\newmintedfile{dockerfile}{
+    autogobble=true,% remove (gobble) all common leading whitespace from code
+    breaklines=true,% break lines
+    breakafter=-/.,%
+    %    breakanywhere=true,% break lines anywhere
+    linenos=true,% show line numbers
+    xleftmargin=2em,% Abstand links
+    framerule=0pt,%
+}
+\newmintedfile{php}{
+    autogobble=true,% remove (gobble) all common leading whitespace from code
+    breaklines=true,% break lines
+    breakafter=-/.:\\,%
+    %    breakanywhere=true,% break lines anywhere
+    linenos=true,% show line numbers
+    xleftmargin=2em,% Abstand links
+    framerule=0pt,%
+}
+\newmintedfile{yaml}{
+    autogobble=true,% remove (gobble) all common leading whitespace from code
+    breaklines=true,% break lines
+    breakafter=-_/.:\\,%
+    %    breakanywhere=true,% break lines anywhere
+    linenos=true,% show line numbers
+    xleftmargin=2em,% Abstand links
+    framerule=0pt,%
+}
+
+\newcommand{\lstlistingname}{Listing}
+
+
+% textcomp – LaTeX support for the Text Companion fonts
+% https://www.ctan.org/pkg/textcomp?lang=de
+\usepackage{textcomp}
+
+
+% geometry – Flexible and complete interface to document dimensions
+% http://www.ctan.org/pkg/geometry
+\usepackage{geometry}
+\geometry{
+    top=30mm,% Oben
+    bottom=20mm,% Unten
+    inner=25mm,% Innen
+    outer=25mm,% Außen
+    bindingoffset=15mm,% Bundsteg
+    nomarginpar,% Kein Platz für Randnotizen
+    %includeheadfoot,
+    showframe=false,% shows visible frames for the text area and page, and the lines for the head and foot on the first page
+}
+
+
+% inputenc – Accept different input encodings
+% UTF8 als Enconding verwenden
+% https://www.ctan.org/pkg/inputenc
+\usepackage[utf8]{inputenc}
+
+
+% fontenc – Standard package for selecting font encodings
+% Nötig um Wörter mit Umlauten korrekt umzubrechen
+% https://www.ctan.org/pkg/fontenc
+\usepackage[T1]{fontenc}
+
+
+% babel – Multilingual support for Plain TeX or LaTeX
+% Neue deutsche Rechtschreibung
+% https://www.ctan.org/pkg/babel
+\usepackage[ngerman]{babel} 
+
+
+% marvosym – Martin Vogel's Symbols (marvosym) font
+% https://www.ctan.org/pkg/marvosym
+\usepackage{marvosym}
+\DeclareUnicodeCharacter{20AC}{\EUR{}}
+
+
+\clubpenalty = 10000
+%\widowpenalty = 10000
+\displaywidowpenalty = 10000
+
+
+% calc – Simple arithmetic in LaTeX commands
+% https://www.ctan.org/pkg/calc
+\usepackage{calc}
+
+
+% graphicx – Enhanced support for graphics
+% https://www.ctan.org/pkg/graphicx
+\usepackage{graphicx}
+
+
+% float – Improved interface for floating objects
+% https://www.ctan.org/pkg/float
+\usepackage{float}
+
+
+% datetime2 – Formats for dates, times and time zones
+% https://www.ctan.org/pkg/datetime2
+\usepackage[useregional]{datetime2}
+
+
+% tabularx – Tabulars with adjustable-width columns
+% https://www.ctan.org/pkg/tabularx
+\usepackage{tabularx}
+
+
+% booktabs – Publication quality tables in LaTeX
+% https://www.ctan.org/pkg/booktabs
+\usepackage{booktabs}
+
+
+% ragged2e – Alternative versions of "ragged"-type commands
+% https://www.ctan.org/pkg/ragged2e
+\usepackage{ragged2e}
+
+
+% pgfplots – Create normal/logarithmic plots in two and three dimensions
+% https://www.ctan.org/pkg/pgfplots
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.11}
+
+
+% enumitem – Control layout of itemize, enumerate, description
+% https://www.ctan.org/pkg/enumitem
+\usepackage{enumitem}
+\setlist{noitemsep}
+%\setlist[itemize]{leftmargin=*}%Kein Einzug
+
+
+% setspace – Set space between lines
+% Standard Zeilenabstand: 1,5 zeilig
+% https://www.ctan.org/pkg/setspace
+\usepackage{setspace}
+\onehalfspacing
+
+
+% csquotes – Context sensitive quotation facilities
+% https://www.ctan.org/pkg/csquotes
+\usepackage{csquotes}
+
+
+% todonotes – Marking things to do in a LATEX document
+% https://www.ctan.org/pkg/todonotes
+\setlength{\marginparwidth}{2.2cm}
+\usepackage[
+    german,%
+]{todonotes}
+\presetkeys{todonotes}{fancyline, color=red!77}{}
+
+% Appendix
+\usepackage[header,title]{appendix}
+\renewcommand{\appendixname}{Anhang}
+\renewcommand{\appendixtocname}{Anhang}
+\renewcommand{\appendixpagename}{Anhang}

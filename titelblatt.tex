@@ -1,0 +1,42 @@
+\begin{titlepage}
+\thispagestyle{empty} % Leere Kopf- und Fußzeile, keine Seitennummern
+
+% Logo der Hochschule
+\begin{flushright}
+\begin{figure}[ht]
+\flushright
+\includegraphics[height=2.5cm]{vendor/Logo_HFU_rz_4c.jpg}
+\end{figure}
+\end{flushright}
+
+\vspace{0.1cm}
+
+\begin{center}
+{\fontsize{18}{22} \selectfont \configArtDerArbeit}\\[5mm] % \fontsize{<size>}{<line space>}
+{\fontsize{18}{22} \selectfont im Studiengang} \\[5mm]
+{\fontsize{18}{22} \selectfont \configStudiengang}\\
+
+\vspace{2cm}
+
+{\fontsize{22}{26} \selectfont \textbf{\configTitel}}\\[5mm]
+{\fontsize{18}{22} \selectfont \configUntertitel}
+\end{center}
+
+\vfill
+
+\begin{center}
+\begin{tabular}{lcl}
+Referent:      && \configReferent \\
+Korreferent:   && \configKorreferent \\	
+Vorgelegt am:  && \configVorgelegtAm \\
+Vorgelegt von: && \configAutor \\
+               && \configMatrikelnummer \\
+               && \configStrasse \\
+               && \configPLZ~\configOrt \\
+               && \href{mailto:\configEmail}{\configEmail} \\
+\end{tabular}
+\end{center}
+
+\end{titlepage}
+
+\trennblatt
